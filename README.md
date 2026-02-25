@@ -1,1 +1,1 @@
-# college-management-
+# SynCity-
