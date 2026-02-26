@@ -4,9 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from sklearn.linear_model import LinearRegression
 import numpy as np
 
-# =============================
-# GOOGLE SHEET CONNECTION
-# =============================
+
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
@@ -18,18 +16,14 @@ data = sheet.get_all_records()
 
 df = pd.DataFrame(data)
 
-# =============================
-# PREPROCESS DATE
-# =============================
+
 df['Date'] = pd.to_datetime(df['Date'], dayfirst=True)
 df = df.sort_values('Date')
 df['Day'] = np.arange(len(df))
 
 print("\n📊 Monthly Smart Campus Data Loaded")
 
-# =============================
-# AI MODEL FUNCTION
-# =============================
+
 def train_predict_model(column):
     X = df[['Day']]
     y = df[column]
@@ -42,9 +36,7 @@ def train_predict_model(column):
 
     return next_day_pred
 
-# =============================
-# 🔮 NEXT DAY PREDICTIONS
-# =============================
+
 next_energy = train_predict_model("Energy")
 next_water = train_predict_model("Water")
 next_temp = train_predict_model("Temp")
@@ -56,9 +48,7 @@ print(f"💧 Water Usage Prediction  : {next_water:.2f}")
 print(f"🌡 Temperature Prediction  : {next_temp:.2f}")
 print(f"🗑 Waste Level Prediction  : {next_waste:.2f}")
 
-# =============================
-# 📡 REAL-TIME DATA
-# =============================
+
 latest = df.iloc[-1]
 
 energy = latest["Energy"]
@@ -69,9 +59,7 @@ waste = latest["Waste"]
 print("\n📡 LIVE CAMPUS STATUS\n")
 print(latest)
 
-# =============================
-# 🤖 REAL-TIME AUTOMATION
-# =============================
+
 print("\n⚙ REAL-TIME AUTOMATION\n")
 
 if energy > 80:
@@ -90,9 +78,7 @@ else:
 if waste > 70:
     print("🗑 Bin Full → Cleaning Required")
 
-# =============================
-# 🚀 PREDICTIVE AUTOMATION
-# =============================
+
 print("\n🚀 AI PREVENTIVE ACTIONS\n")
 
 if next_energy > 80:
@@ -108,3 +94,4 @@ if next_waste > 70:
     print("🗑 Tomorrow Waste Overflow → Cleaning Schedule")
 
 print("\n✅ AI Digital Twin Decision Engine Active")
+
