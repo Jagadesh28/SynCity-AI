@@ -21,7 +21,7 @@ void loop()
 
   voltage = sensorValue * (5.0 / 1023.0);
 
-  // Simulated current scaling
+  
   current = voltage * 2;
 
   power = voltage * current;
@@ -42,4 +42,5 @@ void loop()
   Serial.println(power);
 
   delay(1000);
+
 }
