@@ -9,7 +9,7 @@ int echo = 10;
 int led = 7;
 int buzzer = 8;
 
-// Bin height
+
 int binHeight = 40;
 
 void setup()
@@ -43,7 +43,7 @@ void loop()
 
   distance = constrain(distance, 0, binHeight);
 
-  // Reverse logic (full when distance small)
+
   float level = ((binHeight - distance) / binHeight) * 100;
 
   lcd.clear();
@@ -76,3 +76,4 @@ void loop()
   delay(500);
 
 }
+
