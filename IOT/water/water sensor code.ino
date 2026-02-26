@@ -1,18 +1,17 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-// I2C LCD address (MCP23008 commonly 0x20, try 0x27 if needed)
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-// Ultrasonic pins
+
 int trig = 9;
 int echo = 10;
 
-// Output pins
+
 int motorLED = 7;
 int buzzer = 8;
 
-// Tank height (increased for demo range)
+
 int tankHeight = 50;
 
 void setup()
@@ -35,7 +34,7 @@ void loop()
   long duration;
   float distance;
 
-  // Ultrasonic trigger
+  
   digitalWrite(trig, LOW);
   delayMicroseconds(2);
   digitalWrite(trig, HIGH);
@@ -45,10 +44,10 @@ void loop()
   duration = pulseIn(echo, HIGH);
   distance = duration * 0.034 / 2;
 
-  // Keep distance inside tank
+
   distance = constrain(distance, 0, tankHeight);
 
-  // Calculate percentage
+
   float level = ((tankHeight - distance) / tankHeight) * 100;
 
   lcd.clear();
@@ -59,21 +58,21 @@ void loop()
 
   lcd.setCursor(0,1);
 
-  // FULL condition
+
   if(level > 80)
   {
     lcd.print("Tank FULL ");
     digitalWrite(motorLED, LOW);
     digitalWrite(buzzer, LOW);
   }
-  // MID condition
+
   else if(level > 30)
   {
     lcd.print("Tank MID  ");
     digitalWrite(motorLED, LOW);
     digitalWrite(buzzer, LOW);
   }
-  // EMPTY condition
+
   else
   {
     lcd.print("Tank EMPTY");
@@ -82,4 +81,5 @@ void loop()
   }
 
   delay(500);
+
 }
